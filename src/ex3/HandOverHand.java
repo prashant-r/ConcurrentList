@@ -1,13 +1,17 @@
 package ex3;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class HandOverHand implements IntSet {
 
 	Node head;
+	private final AtomicInteger size;
 	public HandOverHand()
 	{
 		head = new Node(Integer.MIN_VALUE);
 		head.next = new Node(Integer.MAX_VALUE);
 		head.next.next = null;
+		size = new AtomicInteger(0);
 	}
 	
 	public boolean insert(int key) {
@@ -33,6 +37,7 @@ public class HandOverHand implements IntSet {
 					Node node = new Node(key);
 					pred.next = node;
 					node.next = curr;
+					size.incrementAndGet();
 					return true;
 				}
 			}
@@ -65,6 +70,7 @@ public class HandOverHand implements IntSet {
 				if(curr.key == key)
 				{
 					pred.next = curr.next;
+					size.decrementAndGet();
 					return true;
 				}
 				else
@@ -110,4 +116,19 @@ public class HandOverHand implements IntSet {
 		
 	}
 
+	@Override
+	public AtomicInteger size() {
+		return size;
+	}
+	
+	public int getSizeByIterating() {
+		Node temp = head;
+		int counter =0;
+		while(temp.next.next!= null)
+		{
+			temp = temp.next;
+			counter++;
+		}
+		return counter;
+	}
 }

@@ -1,17 +1,20 @@
 package ex3;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CoarseGrained implements IntSet{
 	private Node head;
 	private Lock lock = new ReentrantLock();
+	private final AtomicInteger size;
 	
 	public CoarseGrained()
 	{
 		head = new Node(Integer.MIN_VALUE);
 		head.next = new Node(Integer.MAX_VALUE);
 		head.next.next = null;
+		size = new AtomicInteger(0);
 	}
 	public boolean insert(int key) {
 		Node pred, curr;
@@ -32,6 +35,7 @@ public class CoarseGrained implements IntSet{
 				Node nodeToAdd = new Node(key);
 				pred.next = nodeToAdd;
 				nodeToAdd.next = curr;
+				size.incrementAndGet();
 				return true;
 			}
 		}
@@ -57,6 +61,7 @@ public class CoarseGrained implements IntSet{
 			if(key == curr.key)
 			{
 				pred.next = curr.next;
+				size.decrementAndGet();
 				return true;
 			}
 			else
@@ -88,5 +93,23 @@ public class CoarseGrained implements IntSet{
 			lock.unlock();
 		}
 	}
+	@Override
+	public AtomicInteger size() {
+		return size;
+	}
 
+
+	public int getSizeByIterating() {
+		Node temp = head;
+		int counter =0;
+		while(temp.next.next!= null)
+		{
+			temp = temp.next;
+			counter++;
+		}
+		return counter;
+	}
+	
+	
+	
 }

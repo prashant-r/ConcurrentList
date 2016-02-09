@@ -16,6 +16,7 @@ public class TestOptimistic extends TestCase {
 	  assertTrue(optimistic.insert(4));
 	  assertTrue(optimistic.insert(5));
 	  assertTrue(optimistic.contain(3));
+	  assertTrue(optimistic.size().get() == optimistic.getSizeByIterating());
 	}
 	public void testRemove(){
 		
@@ -25,6 +26,7 @@ public class TestOptimistic extends TestCase {
 		assertTrue(optimistic.remove(3));
 		assertTrue(optimistic.remove(4));
 		assertTrue(optimistic.remove(5));
+		assertTrue(optimistic.size().get() == optimistic.getSizeByIterating());
 		
 	}
 	public void testContains(){
@@ -34,6 +36,7 @@ public class TestOptimistic extends TestCase {
 		  assertTrue(optimistic.contain(3));
 		  assertTrue(optimistic.contain(4));
 		  assertTrue(optimistic.contain(5));
+		  assertTrue(optimistic.size().get() == optimistic.getSizeByIterating());
 	}
 
 }

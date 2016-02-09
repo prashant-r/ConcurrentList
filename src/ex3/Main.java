@@ -25,7 +25,7 @@ public class Main {
 		        	duration = Integer.parseInt(args[++i]);
 		            break;
 		        case "-b":
-		        	schemeToTest = args[++i];
+		        	schemeToTest = args[++i].trim();
 		            break;
 		        default:
 		            break;

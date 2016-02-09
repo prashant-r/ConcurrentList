@@ -100,12 +100,16 @@ public class Benchmark {
 		System.out.println("No. of update ops " + updateOps);
 		System.out.println("No. of total ops " + totalOps);
 		System.out.println("------------");
-		System.out.println("No. of insert success "+ Benchmark.insertSuccess);
-		System.out.println("No. of insert failure "+ Benchmark.insertFailure);
-		System.out.println("No. of contain success "+ Benchmark.containSuccess);
-		System.out.println("No. of contain failure "+ Benchmark.containFailure);
-		System.out.println("No. of remove success "+ Benchmark.removeSuccess);
-		System.out.println("No. of remove failure "+ Benchmark.removeFailure);
+		System.out.println("No. of insert success "+ Benchmark.insertSuccess.get());
+		System.out.println("No. of insert failure "+ Benchmark.insertFailure.get());
+		System.out.println("No. of contain success "+ Benchmark.containSuccess.get());
+		System.out.println("No. of contain failure "+ Benchmark.containFailure.get());
+		System.out.println("No. of remove success "+ Benchmark.removeSuccess.get());
+		System.out.println("No. of remove failure "+ Benchmark.removeFailure.get());
+		System.out.println("No. of Total success/failure " + (Benchmark.removeFailure.get() + Benchmark.removeSuccess.get() + Benchmark.insertSuccess.get() +Benchmark.insertFailure.get()+ Benchmark.containSuccess.get()+ Benchmark.containFailure.get()));
+		System.out.println("Final Size of List shoule be " + ((Benchmark.range/2) + Benchmark.insertSuccess.get() - Benchmark.removeSuccess.get()));
 		System.out.println("****************");
+		System.out.println("Size of the List is " + Benchmark.intSet.size().get());
+		
 	}
 }

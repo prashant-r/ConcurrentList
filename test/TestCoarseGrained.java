@@ -14,6 +14,7 @@ public class TestCoarseGrained extends TestCase {
 	  assertTrue(coarseGrained.insert(4));
 	  assertTrue(coarseGrained.insert(5));
 	  assertTrue(coarseGrained.contain(3));
+	  assertTrue(coarseGrained.size().get() == coarseGrained.getSizeByIterating());
 	}
 	public void testRemove(){
 		
@@ -23,6 +24,7 @@ public class TestCoarseGrained extends TestCase {
 		assertTrue(coarseGrained.remove(3));
 		assertTrue(coarseGrained.remove(4));
 		assertTrue(coarseGrained.remove(5));
+		assertTrue(coarseGrained.size().get() == coarseGrained.getSizeByIterating());
 		
 	}
 	public void testContains(){
@@ -32,5 +34,6 @@ public class TestCoarseGrained extends TestCase {
 		  assertTrue(coarseGrained.contain(3));
 		  assertTrue(coarseGrained.contain(4));
 		  assertTrue(coarseGrained.contain(5));
+		  assertTrue(coarseGrained.size().get() == coarseGrained.getSizeByIterating());
 	}
 }

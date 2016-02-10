@@ -4,6 +4,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+
+/*
+ * Based on implementation details provided in chapter 9 of The Art of Multiprocessor Programming by Maurice Herlihy  (Author), Nir Shavit  (Author)
+ */
 public class CoarseGrained implements IntSet{
 	private Node head;
 	private Lock lock = new ReentrantLock();

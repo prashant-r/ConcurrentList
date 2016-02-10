@@ -20,21 +20,38 @@ public class Benchmark {
 	
 	public static IntSet intSet;
 	public static int range;
-	
+	/*
+	 * Atomic integers to collect statistics
+	 */
 	public static final AtomicInteger insertSuccess  = new AtomicInteger(0);
 	public static final AtomicInteger insertFailure  = new AtomicInteger(0);
 	public static final AtomicInteger removeSuccess  = new AtomicInteger(0);
 	public static final AtomicInteger removeFailure  = new AtomicInteger(0);
 	public static final AtomicInteger containSuccess = new AtomicInteger(0);
 	public static final AtomicInteger containFailure = new AtomicInteger(0);
-	
+	/*
+	 * initializes variables 
+	 * and sets up the list to contain the prerequisite 
+	 * no. of initial elements specified by the user. 
+	 * element keys to be inserted are selected randomly.
+	 */
 	public static void setUp(String schemeToTest, int initSize)
 	{
 		IntSetFactory intSetFactory = new IntSetFactory();
 		Benchmark.intSet = intSetFactory.getIntSet(schemeToTest);
 		Benchmark.range = initSize*2;
-		for(int a =0 ; a< initSize; a++)
-			Benchmark.intSet.insert(a);
+		Random rand = new Random();
+		int counter = 0;
+		int keyToAdd;
+		while(counter < initSize)
+		{
+			keyToAdd = rand.nextInt(2*initSize);
+			if(!Benchmark.intSet.contain(keyToAdd))
+				{
+					Benchmark.intSet.insert(keyToAdd);
+					++counter;
+				}
+		}	
 	}
 	
 	Benchmark( int noThreads, int updateRatio, int duration)
@@ -45,7 +62,10 @@ public class Benchmark {
 		updateOps = 0;
 		totalOps = 0;
 	}
-	
+	/*
+	 * Function called my main thead to start benchmarking 
+	 * process that spawns the given no. of BenchMarkThreads
+	 */
 	public void startBenchmarking()
 	{	
 		ExecutorService taskExecutor = Executors.newFixedThreadPool(noThreads);
@@ -74,12 +94,16 @@ public class Benchmark {
 		}
 		taskExecutor.shutdownNow();
 		try {
-			  taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+			  taskExecutor.awaitTermination(2000, TimeUnit.MILLISECONDS);
 			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 	}
 
-	
+	/*
+	 * Decides whether next chosen operation is an update or not
+	 * by minimizing the error that's defined by currentRatio - updateRatio.
+	 */
 	public boolean updateOrNot()
 	{
 		double updateFrac = (double)updateRatio/100;
@@ -90,7 +114,9 @@ public class Benchmark {
 		else
 			return false;
 	}
-	
+	/*
+	 * Prints statistics to console for this run
+	 */
 	public void printStatistics()
 	{
 		System.out.println("***************");
@@ -107,6 +133,7 @@ public class Benchmark {
 		System.out.println("No. of remove failure "+ Benchmark.removeFailure.get());
 		System.out.println("No. of Total success/failure " + (Benchmark.removeFailure.get() + Benchmark.removeSuccess.get() + Benchmark.insertSuccess.get() +Benchmark.insertFailure.get()+ Benchmark.containSuccess.get()+ Benchmark.containFailure.get()));
 		System.out.println("Size of the List is " + Benchmark.intSet.size().get());
+		System.out.println("Throughput is " + ( (Benchmark.removeFailure.get() + Benchmark.removeSuccess.get() + Benchmark.insertSuccess.get() +Benchmark.insertFailure.get()+ Benchmark.containSuccess.get()+ Benchmark.containFailure.get())/5));
 		System.out.println("***************");
 	}
 }

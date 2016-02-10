@@ -64,7 +64,9 @@ public class Main {
 			System.exit(1);
 			
 	}
-
+	/*
+	 * Methods below are meant for parameter validation
+	 */
 	public static boolean validateDuration(Integer duration)
 	{
 		if(duration == null)

@@ -1,7 +1,11 @@
+
 package ex3;
 
 public class IntSetFactory {
 
+	/*
+	 * Factory pattern to return type of IntSet
+	 */
 	public IntSet getIntSet(String intSetType){
 		      if(intSetType == null){
 		         return null;

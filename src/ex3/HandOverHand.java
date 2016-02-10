@@ -2,6 +2,9 @@ package ex3;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/*
+ * Based on implementation details provided in chapter 9 of The Art of Multiprocessor Programming by Maurice Herlihy  (Author), Nir Shavit  (Author)
+ */
 public class HandOverHand implements IntSet {
 
 	Node head;

@@ -9,6 +9,12 @@ public class BenchMarkThread implements Runnable{
 		this.command = command;
 		this.key = key;
 	}	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 * Executes as BenchmarkThread is called upon.
+	 * decides which function to call based on the argument passed in variable command,(passed in constructor call)
+	 */
 	@Override
 	public void run() {
 		boolean result = false;
